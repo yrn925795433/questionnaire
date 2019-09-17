@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>欢迎页</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/survey-user-index.css">
+</head>
+<div  id="rrapp">
+    <!--<div class="jumbotron text-center header" >-->
+        <!--<div style="float: left;"></div>-->
+        <!--<div style="float: right;">-->
+            <!--&lt;!&ndash;<div style="float: left;margin-right: 20px;">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="#">导出测评</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div style="float: left;">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="#">手机预览</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+        <div class="container">
+            <div class="content-box" >
+                <div class="content_head" id="begin_content">
+                    <h1><p>调查问卷</p></h1>
+                    <div class="fg"></div>
+                </div>
+                <!--<div v-if="questionList== null || questionList.length ==0">-->
+                    <!--<h4 style="alignment: center">感觉您的配合与支持！</h4>-->
+                <!--</div>-->
+
+                    <div class="content_body"  style="float: left;">
+                            <div class='card' v-for="(item,idx) in questionList">
+                                <p  class="question"><span>Q{{idx + 1 }}.</span>[{{item.mainclass}}][{{item.subclass}}]{{item.question}}</p>
+                                <ul class="select">
+                                    <li v-show="item.option1 != null">
+                                        <label class="lbl-local"><input type="radio" :checked="item.answerNumber == 1" @change="changeAnswer(idx,1)">&nbsp;&nbsp;{{item.option1}}</label>
+                                    </li>
+                                    <li v-show="item.option2 != null">
+                                        <label class="lbl-local"><input type="radio" :checked="item.answerNumber == 2" @change="changeAnswer(idx,2)" >&nbsp;&nbsp;{{item.option2}}</label>
+                                    </li>
+                                    <li v-show="item.option3 != null">
+                                        <label class="lbl-local">  <input type="radio"  :checked="item.answerNumber == 3" @change="changeAnswer(idx,3)">&nbsp;&nbsp;{{item.option3}}</label>
+                                    </li>
+                                    <li v-show="item.option4 != null">
+                                        <label class="lbl-local">  <input type="radio" :checked="item.answerNumber == 4" @change="changeAnswer(idx,4)" >&nbsp;&nbsp;{{item.option4}}</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    <div class="content_bar" v-show="questionList.length > 0">
+                        <div style=" position: fixed;margin-bottom: 10px">
+                            <div class="progress2">
+                                <div class="progress-bar2 progress-bar-striped active"  :style="'height:'+answeredPercent +'%' ">
+                                </div>
+                                <span style="font-size: small">{{answeredPercent}}%</span>
+                            </div>
+                        </div>
+                    </div>
+                <p style="clear: both">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <!--<button class="btn btn-primary "style="display: none;float: left; ">上一页</button>-->
+                <!--<button class="btn btn-primary "style="float: left; ">下一页</button>-->
+                <button class="btn btn-success "style="float: right;margin-top: 5px " @click="submitAnswers">提&nbsp;&nbsp;交</button>
+            </div>
+        </div>
+</div>
+<script src="${request.contextPath}/statics/libs/jquery.min.js"></script>
+<script src="${request.contextPath}/statics/libs/vue.min.js"></script>
+<script src="${request.contextPath}/statics/libs/router.js"></script>
+<script src="${request.contextPath}/statics/libs/bootstrap.min.js"></script>
+<script src="${request.contextPath}/statics/libs/app.js"></script>
+<script src="${request.contextPath}/statics/plugins/layer/layer.js"></script>
+<script src="${request.contextPath}/statics/js/main.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#rrapp',
+        data:{
+            user:{},
+            // main:"main.html",
+            password:'',
+            newPassword:'',
+            navTitle:"智能",
+            questionList:'',
+            answerList:'',
+            answered:0,
+            answeredPercent:100
+        },
+        created: function() {
+            this.getUser();
+        },
+        methods: {
+            getUser: function(){
+                $.getJSON("sys/user/info?_"+$.now(), function(r){
+                    vm.user = r.user;
+                    console.log(vm.user)
+                    vm.getUserQuestions()
+                });
+            },
+            updatePassword: function() {
+            },
+            getUserQuestions: function () {
+                $.ajax({
+                    type: "GET",
+                    url: "sys/answers/getQuestionsByUserId",
+                    contentType: "application/json",
+                    data: {'userId': vm.user.userId},
+                    success: function(r){
+                        if(r.code === 0){
+                            layer.msg("操作成功", {icon: 1});
+                            vm.questionList=r.list;
+                            vm.answerList=[];
+                            console.log(vm.questionList)
+                            vm.calculateProcessPercentage();
+                        }else{
+                        }
+                    }
+                });
+            },
+            changeAnswer: function(idx,answerNumber){
+                vm.questionList[idx].answerNumber = answerNumber;
+                //var answered=0;
+                vm.calculateProcessPercentage();
+                // console.log("answerNumber="+ vm.questionList[idx].answerNumber);
+                // console.log("answered="+ vm.answered + "/" +vm.questionList.length);
+                // console.log("vm.answeredPercent="+ vm.answeredPercent);
+            },
+            submitAnswers: function () {
+                for(var i=0;i<vm.questionList.length;i = parseInt(i)+1){
+                    if (vm.questionList[i].answerNumber == null || vm.questionList[i].answerNumber <=0){
+                        layer.msg("尚未完成问题"+ (parseInt(i)+1), {icon: 2});
+                        return ;
+                    }
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "sys/answers/submitAnswers",
+                    contentType: "application/json",
+                    data: JSON.stringify({'answers': vm.questionList}),
+                    success: function(r){
+                        if(r.code === 0){
+                            layer.msg("操作成功", {icon: 1});
+                            console.log(r)
+                        }else{
+                        }
+                    }
+                });
+            },
+            calculateProcessPercentage:function(){
+                vm.answered =0
+                for(var i=0;i<vm.questionList.length;i = parseInt(i)+1){
+                    if (vm.questionList[i].answerNumber != null && vm.questionList[i].answerNumber >0){
+                        vm.answered = parseInt(vm.answered) +1 ;
+                    }
+                }
+                if(vm.questionList.length >0){
+                    vm.answeredPercent = parseInt((vm.answered/vm.questionList.length)*100)
+                }
+            }
+        },
+        updated: function(){
+            //路由
+            // var router = new Router();
+            // routerList(router, vm.menuList);
+            // router.start();
+        }
+    });
+</script>
+<style>
+    .lbl-local {
+        cursor: pointer;
+    }
+    .question {
+        font-size: 15px;
+    }
+</style>
+</body>
+</html>

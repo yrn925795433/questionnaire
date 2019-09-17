@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.sipai.modules.user.dao.AnswersDao">
+
+	<select id="getQuestionsByUserId" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT
+		ut.tests_id AS testId,
+		ut.test_time AS testTime,
+		ua.ans_time AS answerTime,
+		ua.ans_number AS answerNumber,
+		ut.user_id AS userId,
+		ans.questions_id AS questionsId,
+		q.*,
+		FALSE AS option1Value,
+		FALSE AS option2Value,
+		FALSE AS option3Value,
+		FALSE AS option3Value,
+		FALSE AS option4Value
+		FROM
+		usertests ut
+		INNER JOIN answers ans ON ut.tests_id = ans.tests_id
+		INNER JOIN questions q ON ans.questions_id = q.questions_id
+		left JOIN useranswer ua ON ua.questions_id = ans.questions_id
+		WHERE
+		ut.test_status = 0
+		AND ut.user_id =
+		#{userId}
+	</select>
+
+	<insert id="insertAnswers" parameterType="java.lang.Long">
+		insert into
+		answers(answers_id,tests_id,questions_id)
+		SELECT
+		null,ts.tests_id,qs.questions_id FROM tests ts
+		inner join questions qs
+		where ts.tests_id= #{testsId}
+	</insert>
+
+</mapper>

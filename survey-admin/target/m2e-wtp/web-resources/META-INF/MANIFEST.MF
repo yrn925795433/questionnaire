@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: survey-admin
+Implementation-Version: 4.0.0
+Built-By: YRN
+Implementation-Vendor-Id: io.sipai
+Build-Jdk: 1.8.0_131
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/questionnaire/survey-admin
+Created-By: Maven Integration for Eclipse
+

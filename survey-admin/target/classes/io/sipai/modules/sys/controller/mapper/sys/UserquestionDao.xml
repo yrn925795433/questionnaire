@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.sipai.modules.sys.dao.UserquestionDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+	<resultMap
+		type="io.sipai.modules.sys.entity.UserquestionEntity"
+		id="userquestionMap">
+		<result property="id" column="id" />
+		<result property="questionsId" column="questions_id" />
+		<result property="userId" column="user_id" />
+		<result property="question" column="question" />
+		<result property="option1" column="option1" />
+
+		<result property="option2" column="option2" />
+
+		<result property="option3" column="option3" />
+
+		<result property="option4" column="option4" />
+
+
+	</resultMap>
+
+	<!--<select id="userquestionQuery" resultType="java.util.Map"> -->
+	<!-- <select id="userquestionQuery" resultType="io.sipaimodules.sys.entity.UserquestionEntity"> 
+		SELECT questions_id,question,option1,option2,option3,option4,ansnumber,anstime 
+		FROM questions LEFT JOIN questions ON questions.questions_id=questions.questions_id 
+		WHERE questions.tests_id='3' </select> -->
+
+	<select id="userquestionQueryByUserId"
+		resultType="io.sipai.modules.sys.entity.UserquestionEntity">
+		select
+		id,userquestion.questions_id,user_id,question,option1,option2,option3,option4
+		from
+		userquestion left join questions on
+		questions.questions_id=userquestion.questions_id
+	</select>
+
+	<select id="userquestionQueryById"
+		resultType="io.sipai.modules.sys.entity.UserquestionEntity">
+		select
+		id,userquestion.questions_id,user_id,question,option1,option2,option3,option4
+		from
+		userquestion left join questions on
+		questions.questions_id=userquestion.questions_id
+		WHERE id =
+		#{id,jdbcType=BIGINT}
+	</select>
+
+	<update id="userquestionUpdateById">
+		UPDATE userquestion SET user_id =
+		#{user_id,jdbcType=BIGINT} WHERE
+		id =
+		#{id,jdbcType=BIGINT}
+	</update>
+
+
+</mapper>

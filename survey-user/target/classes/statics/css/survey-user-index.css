@@ -1,0 +1,170 @@
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.428571429;
+	color: #333333;
+	background-color: #f5f5f5;
+	background-position: left top;
+	background-image:url(../img/13049.jpg);
+	background-repeat: repeat;
+
+}
+img{
+
+	max-width: 100%;
+	height:auto;
+}
+	.header {
+		background: none repeat scroll 0 0 #fdf9cd;
+		border-bottom: 1px solid #dbdbdb;
+	border-left: 1px solid #DBDBDB;
+	border-right: 1px solid #DBDBDB;
+	margin: 0 auto 15px auto;
+	padding: 15px 10px 10px;
+	width: 874px;
+	height: 47px;
+	position: relative;
+	z-index: 1000;
+}
+
+.footer {
+	width: 814px;
+	padding-top: 10px;
+	margin: 0 auto;
+}
+
+.footer_mini {
+	color: #828282;
+	font-size: 12px;
+	height: 100px;
+	line-height: 70px;
+	width: 100%;
+	min-width: 894px;
+}
+
+.footer_mini .footer_logo,
+.footer_mini .supporter {
+	margin-top: 0;
+}
+
+.footer_mini .footer_logo,
+.footer_mini .supporter {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.instructions {
+	width: 100%;
+	color: #999999;
+	margin: 0;
+	text-align: center;
+	position: relative;
+}
+
+.footer_logo {
+	text-align: center;
+}
+
+.instructions div {
+	float: none;
+}
+
+.supporter {
+	margin-top: 5px;
+	text-align: center;
+}
+
+.footer_mini .jubao {
+	position: relative;
+	float: right;
+}
+
+a {
+	display: block;
+	outline: none;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+#begin_content {
+	clear: both;
+	overflow: hidden;
+	text-align: center;
+}
+
+.content-box {
+	margin: 0 auto 20px auto;
+	padding: 10px 40px 66px;
+	min-height:200px;
+	width: 810px;
+	background-color: #FFFFFF;
+	box-shadow: 4px 4px 16px #cccccc;
+	border-radius: 5px;
+	opacity: 0.9;
+}
+.content_head{
+
+}
+.content_top {
+	padding-top:30px;
+}
+.content_bar{
+	float:right;
+	margin-right: 10px;
+	min-height: 200px;
+	width: 30px;
+	z-index:3000;
+}
+.content_body{
+	float: left;
+	margin-top: 30px;
+	margin-left: 30px;
+	padding: 0 0 30px 0;
+	min-height: 200px;
+	width: 650px;
+	background-color: #FFFFFf;
+	clear: both;
+}
+
+.fg {
+	width: 100%;
+	height: 3px;
+	background-color: #53a4f4;
+}
+
+.progress {
+
+	display: block;
+	float: left;
+	margin-right: 10px;
+	width: 720px;
+	text-align: left;
+	/*height: 8px;*/
+	margin: 3px 0 0;
+	position: fixed;
+}
+.progress2 {
+
+	width:25px;
+	height:300px;
+	background-color:#fff;
+	border:1px solid #ccc;
+	position:relative;
+	border-radius: 3px;
+	margin-top: 50px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.progress-bar2{
+	width:100%;
+	display:block;
+	font-family:arial;
+	font-size:14px;
+	border-radius: 3px;
+	background-color:dodgerblue;
+	color:#fff;
+	position:absolute;
+	bottom:0
+}

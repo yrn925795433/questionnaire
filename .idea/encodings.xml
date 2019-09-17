@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survey-admin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survey-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survey-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survey-dynamic-datasource" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survey-generator" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survey-user" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.sipai.modules.sys.dao.QuestionsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.sipai.modules.sys.entity.QuestionsEntity" id="questionsMap">
+        <result property="questionsId" column="questions_id"/>
+        <result property="grade" column="grade"/>
+        <result property="mainclass" column="mainclass"/>
+        <result property="subclass" column="subclass"/>
+        <result property="subweight" column="subweight"/>
+        <result property="question" column="question"/>
+        <result property="quweight" column="quweight"/>
+        <result property="option1" column="option1"/>
+        <result property="option2" column="option2"/>
+        <result property="option3" column="option3"/>
+        <result property="option4" column="option4"/>
+    </resultMap>
+
+	<select id="queryQuestion" resultType="io.sipai.modules.sys.entity.QuestionsEntity">
+		select * from questions where questions_id = #{questions_id}
+	</select>
+
+	<delete id="deleteBatch">
+		delete from questions where questions_id in
+		<foreach item="questionsId" collection="array" open="(" separator="," close=")">
+			#{questionsId}
+		</foreach>
+	</delete>
+	
+	<select id="queryQuestionIdList" resultType="long">
+		select * from questions
+	</select>
+	
+	<select id="queryList" resultType="io.sipai.modules.sys.entity.QuestionsEntity">
+		select * from questions 
+	</select>
+	
+
+
+</mapper>

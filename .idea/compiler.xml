@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="survey-user" />
+        <module name="survey-dynamic-datasource" />
+        <module name="survey-common" />
+        <module name="sipai-generator" />
+        <module name="survey-admin" />
+        <module name="survey-api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="sipai-generator" options="-parameters" />
+      <module name="survey-admin" options="-parameters" />
+      <module name="survey-api" options="-parameters" />
+      <module name="survey-common" options="-parameters" />
+      <module name="survey-dynamic-datasource" options="-parameters" />
+      <module name="survey-user" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.sipai.modules.sys.dao.UseranswerDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.sipai.modules.sys.entity.UseranswerEntity" id="useranswerMap">
+        <result property="answersId" column="answers_id"/>
+        <result property="ansNumber" column="ans_number"/>
+        <result property="ansTime" column="ans_time"/>
+        <result property="question" column="question"/>
+        <result property="option1" column="option1"/>
+        <result property="option2" column="option2"/>
+        <result property="option3" column="option3"/>
+        <result property="option4" column="option4"/>
+    </resultMap>
+
+    <!--<select id="useranswerQuery" resultType="java.util.Map">-->
+<!--    <select id="useranswerQuery" resultType="io.sipaimodules.sys.entity.UseranswerEntity">
+        SELECT answers_id,question,option1,option2,option3,option4,ansnumber,anstime FROM answers
+        LEFT JOIN questions
+        ON answers.questions_id=questions.questions_id WHERE answers.tests_id='3'
+    </select>-->
+
+    <select id="useranswerQueryByTestsID"  resultType="io.sipai.modules.sys.entity.UseranswerEntity">
+        SELECT answers_id,question,option1,option2,option3,option4,ans_number,ans_time FROM answers
+        LEFT JOIN questions ON answers.questions_id=questions.questions_id
+        LEFT JOIN tests ON answers.tests_id=tests.tests_id
+        WHERE tests.user_id = #{user_id,jdbcType=BIGINT} AND tests.test_status = #{test_status,jdbcType=BIGINT}
+    </select>
+
+    <select id="useranswerQueryByAnswersID"  resultType="io.sipai.modules.sys.entity.UseranswerEntity">
+        SELECT answers_id,question,option1,option2,option3,option4,ans_number,ans_time FROM answers
+        LEFT JOIN questions ON answers.questions_id=questions.questions_id
+        WHERE answers_id = #{answers_id,jdbcType=BIGINT}
+    </select>
+
+    <update id="useranswerUpdateByAnswersID">
+        UPDATE  answers SET ans_number = #{ans_number,jdbcType=BIGINT} WHERE answers_id = #{answers_id,jdbcType=BIGINT}
+    </update>
+
+
+</mapper>
