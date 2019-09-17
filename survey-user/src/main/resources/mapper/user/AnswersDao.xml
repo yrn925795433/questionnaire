@@ -22,8 +22,8 @@
 		usertests ut
 		INNER JOIN answers ans ON ut.tests_id = ans.tests_id
 		INNER JOIN questions q ON ans.questions_id = q.questions_id
-		left JOIN useranswer ua ON ua.questions_id = ans.questions_id
-		WHERE
+		left JOIN useranswer ua ON ua.questions_id = ans.questions_id and ua.usertests_id = ut.id
+		WHERE 
 		ut.test_status = 0
 		AND ut.user_id =
 		#{userId}
